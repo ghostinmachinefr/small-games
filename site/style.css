@@ -1,0 +1,339 @@
+/* style.css - the look of the whole site.
+   Colours live in one place (the variables below), so changing the theme
+   means editing just these lines. */
+
+:root {
+  --bg: #0e1015;
+  --surface: #161922;
+  --surface-2: #1d2130;
+  --border: #2a2f3e;
+  --text: #eef0f5;
+  --muted: #99a0b3;
+  --accent: #7ee787;        /* snake green */
+  --accent-ink: #08210d;    /* text on top of the accent colour */
+  --danger: #ff7b7b;
+  --radius: 14px;
+  --font-display: "Pixelify Sans", ui-monospace, monospace;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); }
+img { max-width: 100%; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 0.5em;
+}
+h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+
+.muted { color: var(--muted); }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px max(16px, calc((100% - 1100px) / 2));
+  background: rgba(14, 16, 21, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+.logo span { color: var(--accent); }
+.topbar nav { display: flex; gap: 20px; }
+.topbar nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.topbar nav a:hover { color: var(--text); }
+
+/* ---------- Page width ---------- */
+main, .footer {
+  width: min(1100px, 100% - 32px);   /* 16px gap on each side on phones */
+  margin-inline: auto;
+}
+.section { padding: 72px 0 24px; scroll-margin-top: 60px; }
+
+/* ---------- Intro ---------- */
+.hero {
+  padding: 96px 0 40px;
+  position: relative;
+}
+/* faint pixel grid behind the intro */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 -50vw;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--surface) 1px, transparent 1px),
+    linear-gradient(90deg, var(--surface) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse at 30% 40%, black, transparent 70%);
+}
+.eyebrow {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+.hero h1 { font-size: clamp(2.4rem, 7vw, 4.6rem); }
+.lede { color: var(--muted); font-size: 1.1rem; max-width: 56ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 40px; }
+
+.stats { display: flex; gap: 40px; margin: 0; }
+.stats div { display: flex; flex-direction: column; }
+.stats dt { font-family: var(--font-display); font-size: 2.2rem; line-height: 1; }
+.stats dd { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font: 600 1rem var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.15s, border-color 0.15s;
+}
+.btn:hover { border-color: var(--muted); }
+.btn:active { transform: translateY(1px); }
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.btn.primary:hover { background: #9af0a1; }
+.btn.small { padding: 8px 16px; font-size: 0.95rem; }
+.btn:disabled { opacity: 0.6; cursor: wait; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- Game cards ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.card:hover { transform: translateY(-3px); border-color: #3a4152; }
+
+.thumb {
+  aspect-ratio: 16 / 10;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.card:hover .thumb img { transform: scale(1.04); }
+
+.thumb.placeholder {
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(45deg, var(--surface-2) 0 12px, var(--surface) 12px 24px);
+}
+.thumb.placeholder span {
+  font-family: var(--font-display);
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 18px 20px 22px;
+  flex: 1;
+}
+.card-body h3 { font-size: 1.6rem; margin: 0; }
+.card-body h3 a { color: var(--text); text-decoration: none; }
+.card-body p { color: var(--muted); margin: 0 0 8px; flex: 1; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 99px;
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffd479;
+}
+
+/* ---------- Suggestion box ---------- */
+.suggest {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: start;
+  padding-bottom: 72px;
+}
+.suggest-copy p { color: var(--muted); max-width: 42ch; }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.field { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.field span { font-weight: 600; font-size: 0.9rem; }
+.field em { color: var(--muted); font-style: normal; font-weight: 400; }
+.field-row { display: flex; gap: 16px; }
+
+input, textarea, select {
+  width: 100%;
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: 400 1rem var(--font-body);
+}
+textarea { resize: vertical; min-height: 110px; }
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(126, 231, 135, 0.2);
+}
+.form .btn { align-self: flex-start; }
+.honeypot { display: none; }            /* hidden from people, spam bots still fill it */
+.form-status { margin: 0; min-height: 1.6em; font-weight: 500; color: var(--muted); }
+.form-status[data-state="ok"] { color: var(--accent); }
+.form-status[data-state="error"] { color: var(--danger); }
+
+/* ---------- Play page ---------- */
+.player { padding: 32px 0 56px; }
+.back {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+}
+.back:hover { color: var(--text); }
+.player h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); margin-bottom: 0.2em; }
+
+.stage {
+  display: grid;
+  place-items: center;
+  margin: 28px 0 14px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+/* The frame keeps the game's own shape. --ratio is set by play.js */
+.frame {
+  --ratio: 1.2;
+  aspect-ratio: var(--ratio);
+  width: min(100%, calc(72vh * var(--ratio)));
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.frame:fullscreen { width: 100%; height: 100%; border-radius: 0; }
+
+.player-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.hint { color: var(--muted); margin: 0; }
+
+.controls { margin-top: 36px; }
+.controls h2 { font-size: 1.6rem; }
+.controls ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.controls li {
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 28px 0 40px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Phones and small screens ---------- */
+@media (max-width: 760px) {
+  .hero { padding-top: 56px; }
+  .suggest { grid-template-columns: 1fr; gap: 24px; }
+  .field-row { flex-direction: column; }
+  .topbar nav { gap: 14px; }
+  .topbar nav a:first-child { display: none; }
+  .stage { padding: 8px; }
+}

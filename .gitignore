@@ -1,0 +1,19 @@
+# Files git should NOT save or upload
+
+# macOS folder settings
+.DS_Store
+
+# Python's compiled cache
+__pycache__/
+
+# pygbag's build output (the finished copies live in site/games/)
+*/build/
+
+# Your personal high score
+highscore.txt
+
+# Claude app settings for this folder
+.claude/
+
+# empty placeholder file
+game1

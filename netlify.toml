@@ -1,0 +1,5 @@
+# Settings for Netlify, the service that hosts the website.
+# It tells Netlify: "the website is the files inside the site/ folder".
+# There's no build step - the files are already ready to serve.
+[build]
+  publish = "site"

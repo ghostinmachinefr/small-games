@@ -4,7 +4,7 @@ A collection of 2D games I'm building in **Python with Pygame**. Every game can 
 played **in the browser** on my website, and visitors can **suggest the next game**
 I should build.
 
-**Live site:** _(add your Netlify link here once deployed)_
+**Live site: [gandalfgames.netlify.app](https://gandalfgames.netlify.app)**
 
 | Game | Status |
 |---|---|
